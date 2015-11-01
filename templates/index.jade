@@ -1,0 +1,10 @@
+doctype html
+html(lang="en")
+  head
+    title #{team_name} vs #{rival_name}
+    script(type='text/javascript').
+  body
+    h1= data['team_name']
+    ul
+      for c in data.to_dict().items()
+        li #{c[0]}: #{c[1]}
