@@ -22,8 +22,12 @@
     <div class="col s5">
       <div class="row center-align">
         <ul class="collection">
-          <li>Competition: ${match.competition_name}</li>
-          <li>htf: 17</li>
+        <li repeat.for="match of last10">
+            <ul class="collection">
+                <li>Competition: ${match.competition_name}</li>
+                <li>Match: ${match.team_name} vs ${match.rival_name}</li>
+            </ul>
+        </li>
         </ul>
       </div>
     </div>

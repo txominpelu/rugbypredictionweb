@@ -20,5 +20,13 @@ def api_match(gameId):
     d['home'] = str(d['home'])
     return flask.jsonify(**d.to_dict())
 
+
+@app.route("/api/last10/<teamid>/", methods=['POST'])
+def last10(teamid):
+    d = request.get_json()
+    conditions = reduce(lambda acc, x: acc & x, [df[i] == d[i] for i in ['rival_id','league','home'] if d.get(i)], df["team_id"] == int(teamid))
+    d = df[conditions].sort_values(by='date_t',ascending=False)[1:10].T.to_dict().values()
+    return flask.jsonify(results=d)
+
 if __name__ == "__main__":
     app.run(debug=True)
