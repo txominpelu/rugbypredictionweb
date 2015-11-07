@@ -10,22 +10,27 @@ app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
 df = pd.read_csv("data/matches-spark3.csv",";")
 
-@app.route("/match/<gameId>")
-def match(gameId):
-    return render_template('index.html', data=df[df["gameId"]==int(gameId)].iloc[0])
+@app.route("/")
+def index():
+    return render_template('index.html')
 
-@app.route("/api/match/<gameId>")
-def api_match(gameId):
-    d = df[df["gameId"]==int(gameId)].iloc[0]
+@app.route("/api/teams/")
+def api_teams():
+    d = df.groupby(['team_id'])[['team_id','team_name']].first().T.to_dict().values()
+    return flask.jsonify(results=d)
+
+@app.route("/api/match/<teamid>")
+def api_last_match(teamid):
+    d = df[df["team_id"] == int(teamid)].sort_values(by='date_t',ascending=False).iloc[0]
     d['home'] = str(d['home'])
     return flask.jsonify(**d.to_dict())
 
 
 @app.route("/api/last10/<teamid>/", methods=['POST'])
-def last10(teamid):
+def api_last10(teamid):
     d = request.get_json()
     conditions = reduce(lambda acc, x: acc & x, [df[i] == d[i] for i in ['rival_id','league','home'] if d.get(i)], df["team_id"] == int(teamid))
-    d = df[conditions].sort_values(by='date_t',ascending=False)[1:10].T.to_dict().values()
+    d = df[conditions].sort_values(by='date_t',ascending=False)[0:10].T.to_dict().values()
     return flask.jsonify(results=d)
 
 if __name__ == "__main__":

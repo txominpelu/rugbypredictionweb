@@ -1,39 +1,28 @@
+
 <template>
 
-  <h1 class="center-align">England vs France
-  </h1>
+  <require from="materialize-css/dist/css/materialize.css"></require>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">${router.title}</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+          <a href.bind="row.href">${row.title}</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="row">
     <div class="col s2">
       <p></p>
     </div>
-    <div class="col s3">
-      <ul class="collection with-header">
-        <li>
-          <div class="collection-header">
-            <h4>Combinations</h4>
-          </div>
-        </li>
-        <li class="collection-item blue-grey lighten-5">Team</li>
-        <li class="collection-item blue-grey lighten-5">Rival</li>
-        <li class="collection-item">Home</li>
-        <li class="collection-item">League</li>
-      </ul>
-    </div>
-    <div class="col s5">
-      <div class="row center-align">
-        <ul class="collection">
-        <li repeat.for="match of last10">
-            <ul class="collection">
-                <li>Competition: ${match.competition_name}</li>
-                <li>Match: ${match.team_name} vs ${match.rival_name}</li>
-            </ul>
-        </li>
-        </ul>
-      </div>
+    <div class="col s10">
+      <router-view></router-view>
     </div>
     <div class="col s2">
       <p></p>
     </div>
   </div>
-
 </template>

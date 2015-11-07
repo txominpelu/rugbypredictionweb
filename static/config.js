@@ -46,6 +46,7 @@ System.config({
     "core-js": "npm:core-js@1.2.1",
     "fetch": "github:github/fetch@0.9.0",
     "font-awesome": "npm:font-awesome@4.4.0",
+    "materialize-css": "npm:materialize-css@0.97.1",
     "regenerator": "npm:regenerator@0.8.41",
     "text": "github:systemjs/plugin-text@0.0.2",
     "github:aurelia/animator-css@0.17.0": {
@@ -512,6 +513,10 @@ System.config({
     "npm:lcid@1.0.0": {
       "invert-kv": "npm:invert-kv@1.0.0",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:materialize-css@0.97.1": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:miller-rabin@4.0.0": {
       "bn.js": "npm:bn.js@4.1.1",
