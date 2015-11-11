@@ -9,6 +9,8 @@ app = Flask(__name__)
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
 df = pd.read_csv("data/matches-spark3.csv",";")
+teams_df = pd.read_csv("data/teams.csv",",")
+teams_df['logo'].fillna("",inplace=True)
 
 @app.route("/")
 def index():
@@ -16,7 +18,7 @@ def index():
 
 @app.route("/api/teams/")
 def api_teams():
-    d = df.groupby(['team_id'])[['team_id','team_name']].first().T.to_dict().values()
+    d = teams_df.T.to_dict().values()
     return flask.jsonify(results=d)
 
 @app.route("/api/match/<teamid>")

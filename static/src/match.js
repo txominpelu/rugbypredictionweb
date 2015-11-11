@@ -15,7 +15,6 @@ export class Match {
 
   updateCondition(l){
       console.log(l);
-      //conditions.
   }
 
   activate(params){
